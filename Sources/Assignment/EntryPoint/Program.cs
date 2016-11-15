@@ -11,7 +11,7 @@ namespace EntryPoint
     static void CrashMe(int n)
     {
       Console.Write("Going strong at level " + n + "\r                       ");
-      CrashMe(n + 1);
+      //CrashMe(n + 1);
     }
 
     [STAThread]
