@@ -9,16 +9,16 @@ namespace EntryPoint
 {
     public static class MergeSort
     {
-        public static IEnumerable<Vector2> Sort(IEnumerable<Vector2> toSort, Func<Vector2, float> CompareFunction)
+        public static IEnumerable<T> Sort<T>(IEnumerable<T> toSort, Func<T, float> CompareFunction)
         {
-            return Sort(toSort.ToList<Vector2>(), CompareFunction);
+            return Sort(toSort.ToList<T>(), CompareFunction);
         }
-        public static List<Vector2> Sort(List<Vector2> toSort, Func<Vector2, float> CompareFunction)
+        public static List<T> Sort<T>(List<T> toSort, Func<T, float> CompareFunction)
         {
             if(toSort.Count > 1)
             {
                 int middle = toSort.Count / 2;
-                List<Vector2> A, B;
+                List<T> A, B;
                 A = toSort.GetRange(0, middle);
                 B = toSort.GetRange(middle, toSort.Count-middle);
                 A = Sort(A, CompareFunction);
@@ -28,9 +28,9 @@ namespace EntryPoint
             return toSort;
         }
 
-        private static List<Vector2> Merge(List<Vector2> A, List<Vector2> B, Func<Vector2, float> CompareFunction)
+        private static List<T> Merge<T>(List<T> A, List<T> B, Func<T, float> CompareFunction)
         {
-            List<Vector2> toreturn = new List<Vector2>();
+            List<T> toreturn = new List<T>();
 
             while (A.Count>0 && B.Count > 0)
             {
