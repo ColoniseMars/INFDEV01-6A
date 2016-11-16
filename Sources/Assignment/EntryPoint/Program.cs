@@ -10,14 +10,15 @@ namespace EntryPoint
     {
         static void CrashMe(int n)
         {
-            Console.Write("Going strong at level " + n + "\r                       ");
-            //CrashMe(n + 1);
+            Console.Write("Going strong at level " + n + "\r");
+            CrashMe(n + 1);
+            //WHY THIS FUNCTION?!?!
         }
 
         [STAThread]
         static void Main()
         {
-            CrashMe(0);
+            //CrashMe(0);
 
             var fullscreen = false;
             read_input:
@@ -47,7 +48,7 @@ namespace EntryPoint
 
         private static IEnumerable<Vector2> SortSpecialBuildingsByDistance(Vector2 house, IEnumerable<Vector2> specialBuildings)
         {
-            return MergeSort.Sort(specialBuildings, v => Vector2.Distance(v, house));
+            return MergeSort.Sort(specialBuildings, (A,B) => Vector2.Distance(A, house) < Vector2.Distance(B, house));
 
             //throw new NotImplementedException();
             //return specialBuildings.OrderBy(v => Vector2.Distance(v, house));
