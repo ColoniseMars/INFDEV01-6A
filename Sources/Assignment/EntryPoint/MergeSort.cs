@@ -9,10 +9,16 @@ namespace EntryPoint
 {
     public static class MergeSort
     {
+        /// <summary>Sorts an IEnumerable according to a function.
+        /// <para>Takes any IEnumerable and sorts it using mergesort. Returns a new IEnumerable</para>
+        /// </summary>
         public static IEnumerable<T> Sort<T>(IEnumerable<T> toSort, Func<T, float> CompareFunction)
         {
-            return Sort(toSort.ToList<T>(), CompareFunction);
+            return Sort(toSort.ToList(), CompareFunction);
         }
+        /// <summary>Sorts a List according to a function.
+        /// <para>Takes any List and sorts it using mergesort. Returns a new List</para>
+        /// </summary>
         public static List<T> Sort<T>(List<T> toSort, Func<T, float> CompareFunction)
         {
             if(toSort.Count > 1)
@@ -27,7 +33,9 @@ namespace EntryPoint
             }
             return toSort;
         }
-
+        /// <summary>Merges two lists in order according to a function.
+        /// <para>Takes two lists and sorts it according to a function. Returns a new List</para>
+        /// </summary>
         private static List<T> Merge<T>(List<T> A, List<T> B, Func<T, float> CompareFunction)
         {
             List<T> toreturn = new List<T>();
