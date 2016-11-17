@@ -14,24 +14,22 @@ namespace EntryPoint
         /// </summary>
         public static IEnumerable<T> Sort<T>(IEnumerable<T> toSort, Func<T, T, bool> ABeforeB)
         {
-            return Sort(toSort.ToList(), ABeforeB);
+            return Sort(toSort.ToList(), 0, toSort.Count()-1, ABeforeB);
         }
         /// <summary>Sorts a List according to a function.
         /// <para>Takes any List and sorts it using mergesort. Returns a new List</para>
         /// </summary>
-        public static List<T> Sort<T>(List<T> toSort, Func<T, T, bool> ABeforeB)
+        private static List<T> Sort<T>(List<T> toSort, int startIndex, int endIndex, Func<T, T, bool> ABeforeB)
         {
-            if(toSort.Count > 1)
+            if(startIndex <endIndex)
             {
-                int middle = toSort.Count / 2;
+                int middle = (endIndex-startIndex / 2) + startIndex;
                 List<T> A, B;
-                A = toSort.GetRange(0, middle);
-                B = toSort.GetRange(middle, toSort.Count-middle);
-                A = Sort(A, ABeforeB);
-                B = Sort(B, ABeforeB);
+                A = Sort(toSort, startIndex, middle, ABeforeB);
+                B = Sort(toSort, middle+1, endIndex, ABeforeB);
                 return Merge(A, B, ABeforeB);
             }
-            return toSort;
+            return toSort.GetRange(startIndex, 1);
         }
         /// <summary>Merges two lists in order according to a function.
         /// <para>Takes two lists and sorts it according to a function. Returns a new List</para>
