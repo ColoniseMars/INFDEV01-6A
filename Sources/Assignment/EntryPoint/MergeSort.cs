@@ -23,7 +23,7 @@ namespace EntryPoint
         {
             if(startIndex <endIndex)
             {
-                int middle = (endIndex-startIndex / 2) + startIndex;
+                int middle = (endIndex-startIndex) / 2 + startIndex;
                 List<T> A, B;
                 A = Sort(toSort, startIndex, middle, ABeforeB);
                 B = Sort(toSort, middle+1, endIndex, ABeforeB);
