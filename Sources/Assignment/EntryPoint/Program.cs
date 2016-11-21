@@ -48,7 +48,7 @@ namespace EntryPoint
 
         private static IEnumerable<Vector2> SortSpecialBuildingsByDistance(Vector2 house, IEnumerable<Vector2> specialBuildings)
         {
-            return MergeSort.Sort(specialBuildings, (A,B) => Vector2.Distance(A, house) < Vector2.Distance(B, house));
+            return MergeSort.Sort(specialBuildings, (A,B) => Vector2.Distance(A, house) <= Vector2.Distance(B, house));
             //return specialBuildings.OrderBy(v => Vector2.Distance(v, house));
         }
 
