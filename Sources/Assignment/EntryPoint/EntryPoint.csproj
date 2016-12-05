@@ -46,6 +46,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MergeSort.cs" />
+    <Compile Include="MergeSort_IEnumerable.cs" />
+    <Compile Include="MergeSort_LinkedList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
