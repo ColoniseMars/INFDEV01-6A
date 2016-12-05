@@ -8,9 +8,6 @@ namespace EntryPoint
 {
     public static partial class MergeSort
     {
-        public static LinkedList<T> LinkedListSort<T>(LinkedList<T> ToSort, )
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

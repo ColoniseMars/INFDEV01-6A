@@ -56,6 +56,14 @@ namespace EntryPoint
           IEnumerable<Vector2> specialBuildings,
           IEnumerable<Tuple<Vector2, float>> housesAndDistances)
         {
+            //Make kd tree for special buildings
+            kdTree specialbuildingsTree = new kdTree(specialBuildings);
+
+            //foreach houseanddistance, make list of special buildings that are within the range.
+            //return list of lists
+
+
+
             return
                 from h in housesAndDistances
                 select
