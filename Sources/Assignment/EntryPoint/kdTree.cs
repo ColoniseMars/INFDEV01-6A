@@ -16,19 +16,76 @@ namespace EntryPoint
         {
             RootOrderedByX = true;
             Root = kdTreeNode.BuildTree(RootOrderedByX, collection.ToArray());
+            List<Vector2> Allvalue = new List<Vector2>();
+            Root.AllValues(Allvalue);
+            var temp1 = Allvalue.OrderBy(x => x.X);
+            var temp2 = collection.OrderBy(x => x.X);
         }
 
-        public List<Vector2> GetListOfItemsWhere(Func<Vector2, bool> ConditionalFunction)
+        public List<Vector2> GetListOfItemsInRange(Vector2 point, float range)
         {
-            throw new NotImplementedException();
+            var temp =  GetListOfItemsWhere(point.X + range, point.X - range, point.Y + range, point.Y - range, RootOrderedByX, Root);
+            return temp;
+        }
+
+        private List<Vector2> GetListOfItemsWhere(float maxX, float minX, float maxY, float minY, bool XOrdered, kdTreeNode currentNode)
+        {
+            List<Vector2> list = new List<Vector2>();
+            if(currentNode == null)
+            {
+                return list;
+            }
+            if(currentNode.Value.X >= minX && currentNode.Value.X <= maxX && currentNode.Value.Y >= minY && currentNode.Value.Y <= maxY)
+            {
+                list.Add(currentNode.Value);
+            }
+            if (XOrdered) //Level is ordered by X
+            {
+                if (currentNode.Value.X >= minX) //if the value of the currentnode is more than the minimum, call the function on the left child.
+                {
+                    var values = GetListOfItemsWhere(maxX, minX, maxY, minY, !RootOrderedByX, currentNode.LeftChild);
+                    foreach(var i in values)
+                    {
+                        list.Add(i);
+                    }
+                }
+                if (currentNode.Value.X <= maxX) //if the value of the currentnode is more than the minimum, call the function on the right child.
+                {
+                    var values = GetListOfItemsWhere(maxX, minX, maxY, minY, !RootOrderedByX, currentNode.RightChild);
+                    foreach (var i in values)
+                    {
+                        list.Add(i);
+                    }
+                }
+            }
+            else//if this level is ordered by Y
+            {
+                if (currentNode.Value.Y >= minY)
+                {
+                    var values = GetListOfItemsWhere(maxX, minX, maxY, minY, !RootOrderedByX, currentNode.LeftChild);
+                    foreach (var i in values)
+                    {
+                        list.Add(i);
+                    }
+                }
+                if (currentNode.Value.Y <= maxY)
+                {
+                    var values = GetListOfItemsWhere(maxX, minX, maxY, minY, !RootOrderedByX, currentNode.RightChild);
+                    foreach (var i in values)
+                    {
+                        list.Add(i);
+                    }
+                }
+            }
+            return list;
         }
 
         //private void BuildTree(bool LayerOrderedByX, )
 
         private class kdTreeNode
         {
-            Vector2 Value;
-            kdTreeNode LeftChild, RightChild;
+            public Vector2 Value;
+            public kdTreeNode LeftChild, RightChild;
 
             /// <summary>
             /// Creates a new kd ordered tree, alternating the x and y ordering
@@ -51,11 +108,11 @@ namespace EntryPoint
                 int middle = collection.Length / 2;
 
                 if (LayerOrderedByX) {
-                    collection.OrderBy(x => x.X);
+                    collection = collection.OrderBy(x => x.X).ToArray();
                 }
                 else
                 {
-                    collection.OrderBy(x => x.Y);
+                    collection = collection.OrderBy(x => x.Y).ToArray();
                 }
 
                 node.Value = collection[middle];
@@ -69,7 +126,60 @@ namespace EntryPoint
                 return node;
             }
 
-            
+            public void AllValues(List<Vector2> list)
+            {
+                list.Add(Value);
+                if (LeftChild != null)
+                {
+                    LeftChild.AllValues(list);
+                }
+                if (RightChild != null)
+                {
+                    RightChild.AllValues(list);
+                }
+            }
+
+            public int CountElements(bool test)
+            {
+                int total = 1;
+                if (LeftChild != null)
+                {
+                    if (test)
+                    {
+                        if(Value.X < LeftChild.Value.X)
+                        {
+                            int a = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (Value.Y < LeftChild.Value.Y)
+                        {
+                            int a = 0;
+                        }
+                    }
+                    total += LeftChild.CountElements(!test);
+                }
+                if (RightChild != null)
+                {
+                    if (test)
+                    {
+                        if (Value.X > RightChild.Value.X)
+                        {
+                            int a = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (Value.Y > RightChild.Value.Y)
+                        {
+                            int a = 0;
+                        }
+                    }
+                    total += RightChild.CountElements(!test);
+                }
+                return total;
+            }
         }
     }
 }

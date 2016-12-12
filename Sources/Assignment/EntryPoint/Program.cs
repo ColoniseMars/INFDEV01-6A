@@ -58,11 +58,16 @@ namespace EntryPoint
         {
             //Make kd tree for special buildings
             kdTree specialbuildingsTree = new kdTree(specialBuildings);
-
+            List<List<Vector2>> listoflists = new List<List<Vector2>>();
+            foreach(var i in housesAndDistances)
+            {
+                listoflists.Add(specialbuildingsTree.GetListOfItemsInRange(i.Item1, i.Item2));
+            }
+            //specialbuildingsTree.GetListOfItemsInRange(housesAndDistances.First().Item1, housesAndDistances.First().Item2);
             //foreach houseanddistance, make list of special buildings that are within the range.
             //return list of lists
 
-
+            return listoflists;
 
             return
                 from h in housesAndDistances
