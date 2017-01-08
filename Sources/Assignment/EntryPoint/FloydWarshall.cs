@@ -28,13 +28,11 @@ namespace EntryPoint
                     DistanceMatrix[x, y] = int.MaxValue;
                 }
             }
-            int lol = 3;
             for (int i = 0; i < DistanceMatrix.GetLength(0); i++)
             {
                 DistanceMatrix[i, i] = 0;
             }
-
-            int lol2 = 3;
+            
             for (int index = 0; index < IndexedGraphNodes.Count; index++)
             {
                 foreach(var i in IndexedGraphNodes[index].GetAllDirectConnections())
@@ -43,8 +41,7 @@ namespace EntryPoint
                     NextVertexMatrix[index, i.index] = i.index;
                 }
             }
-
-            int lol1 = 3;
+            
             for (int k = 0; k < DistanceMatrix.GetLength(0); k++)
             {
                 for (int i = 0; i < DistanceMatrix.GetLength(0); i++)
@@ -61,25 +58,25 @@ namespace EntryPoint
                         }
                     }
                 }
+                Console.Clear();
+                Console.Write(k);
             }
-            int haha = 3;
         }
 
-        public List<Vector2> GetShortestPath(Vector2 start, Vector2 end)
+        public List<Tuple<Vector2,Vector2>> GetShortestPath(Vector2 start, Vector2 end)
         {
-            List<Vector2> toreturn = new List<Vector2>();
+            List<Tuple<Vector2, Vector2>> toreturn = new List<Tuple<Vector2, Vector2>>();
 
             var startindex = GraphNodeByPosition[start].index;
             var endIndex = GraphNodeByPosition[end].index;
-
-            toreturn.Add(start);
+            
             int CurrentIndex = startindex;
             while(CurrentIndex != endIndex)
             {
+                toreturn.Add(new Tuple<Vector2, Vector2>(IndexedGraphNodes[CurrentIndex].position, IndexedGraphNodes[NextVertexMatrix[CurrentIndex, endIndex]].position));
                 CurrentIndex = NextVertexMatrix[CurrentIndex, endIndex];
-                toreturn.Add(IndexedGraphNodes[CurrentIndex].position);
             }
-            throw new NotImplementedException();
+            return toreturn;
         }
 
         public void AddConnection(Vector2 first, Vector2 second)

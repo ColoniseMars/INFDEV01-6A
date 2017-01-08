@@ -95,6 +95,7 @@ namespace EntryPoint
             FloydWarshall FloydDistances = new FloydWarshall();
 
             //temp
+            /*
             var testdata = new List<Tuple<Vector2, Vector2>>();
             testdata.Add(new Tuple<Vector2, Vector2>(new Vector2(0, 0), new Vector2(1, 0)));
             testdata.Add(new Tuple<Vector2, Vector2>(new Vector2(1, 0), new Vector2(2, 0)));
@@ -107,7 +108,7 @@ namespace EntryPoint
             testdata.Add(new Tuple<Vector2, Vector2>(new Vector2(2, 2), new Vector2(2, 1)));
             testdata.Add(new Tuple<Vector2, Vector2>(new Vector2(2, 1), new Vector2(2, 0)));
 
-            roads = testdata;
+            roads = testdata;*/
             //end temp
 
             foreach (var i in roads)
@@ -115,10 +116,16 @@ namespace EntryPoint
                 FloydDistances.AddConnection(i.Item1, i.Item2);
             }
             FloydDistances.CalculateDistances();
-            FloydDistances.GetShortestPath(new Vector2(0,0), new Vector2(4, 0));
-
-
+            
             List<List<Tuple<Vector2, Vector2>>> result = new List<List<Tuple<Vector2, Vector2>>>();
+
+            foreach (var i in destinationBuildings)
+            {
+                result.Add( FloydDistances.GetShortestPath(startingBuilding, i));
+            }
+            //FloydDistances.GetShortestPath(new Vector2(0,0), new Vector2(4, 2));
+
+            /*
             foreach (var d in destinationBuildings)
             {
                 var startingRoad = roads.Where(x => x.Item1.Equals(startingBuilding)).First();
@@ -130,7 +137,7 @@ namespace EntryPoint
                     fakeBestPath.Add(prevRoad);
                 }
                 result.Add(fakeBestPath);
-            }
+            }*/
             return result;
         }
 
