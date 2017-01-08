@@ -45,6 +45,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FloydWarshall.cs" />
     <Compile Include="kdTree.cs" />
     <Compile Include="MergeSort_IEnumerable.cs" />
     <Compile Include="MergeSort_LinkedList.cs" />
