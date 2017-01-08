@@ -19,7 +19,6 @@ namespace EntryPoint
 
             Root = new node();
             Root.ConstructTree(arraycollection, Xordered);
-            Root.TestValues();
         }
         
 
@@ -43,51 +42,6 @@ namespace EntryPoint
             Vector2 value;
             node Left, Right;
             bool Xordered;
-
-            public void TestValues()
-            {
-                if (Left != null)
-                {
-                    if (Xordered)
-                    {
-                        if (value.X < Left.value.X)
-                        {
-                            breakp();
-                        }
-                    }
-                    else
-                    {
-                        if (value.Y < Left.value.Y)
-                        {
-                            breakp();
-                        }
-                    }
-                    Left.TestValues();
-                }
-                if (Right != null)
-                {
-                    if (Xordered)
-                    {
-                        if (value.X > Right.value.X)
-                        {
-                            breakp();
-                        }
-                    }
-                    else
-                    {
-                        if (value.Y > Right.value.Y)
-                        {
-                            breakp();
-                        }
-                    }
-                    Right.TestValues();
-                }
-            }
-
-            private void breakp()
-            {
-                int lol = 3;
-            }
             
             public void AddToListWhereInSquare(List<Vector2> list, float xmin, float xmax, float ymin, float ymax)
             {
